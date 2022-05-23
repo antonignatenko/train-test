@@ -37,7 +37,5 @@ public class Main {
         System.out.println("Total length of the train is : " + train.findTotalLengthOfTheTrain());
         System.out.println("Empty weight of the train is : " + train.findEmptyWeightOfTheEntireTrain());
         System.out.println("Train is capable to drive " + train.isCapableToDrive());
-
-
     }
 }
