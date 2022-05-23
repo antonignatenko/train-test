@@ -1,7 +1,7 @@
 package train.locomotives;
 
 public abstract class Locomotive {
-    private int orderNumber;
+    private int locomotiveId;
     private int yearOfProduction;
     private String manufacturer;
     private Engine engineType;
@@ -9,7 +9,7 @@ public abstract class Locomotive {
 
     public Locomotive(int orderNumber, int yearOfProduction, String manufacturer, Engine engineType,
                       Designation designationType) {
-        this.orderNumber = orderNumber;
+        this.locomotiveId = orderNumber;
         this.yearOfProduction = yearOfProduction;
         this.manufacturer = manufacturer;
         this.engineType = engineType;
@@ -32,8 +32,8 @@ public abstract class Locomotive {
         return engineType;
     }
 
-    public int getOrderNumber() {
-        return orderNumber;
+    public int getLocomotiveId() {
+        return locomotiveId;
     }
 
     abstract public int getMaxLoadCapacity();

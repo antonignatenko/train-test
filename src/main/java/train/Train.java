@@ -1,102 +1,95 @@
 package train;
 
+import java.util.ArrayList;
 import java.util.List;
 import train.locomotives.Locomotive;
 import train.wagon.Wagon;
 
 public class Train {
-    private List<Wagon> wagons;
-    private List<Locomotive> locomotives;
+    private List<Wagon> wagons = new ArrayList<>();
+    private List<Locomotive> locomotives = new ArrayList<>();
     private int conductors;
 
+    public List<Wagon> getWagons() {
+        return wagons;
+    }
+
+    public List<Locomotive> getLocomotives() {
+        return locomotives;
+    }
 
     public void addWagon(Wagon wagon) {
-        for (Wagon w : wagons) {
-            if (w.getWagonId() == wagon.getWagonId()) {
-                throw new RuntimeException("Wagon with such id " + wagon.getWagonId()
-                        + "is already present in train");
+        if (wagons.size() != 0) {
+            boolean existedId = wagons.stream()
+                    .anyMatch(e -> e.getWagonId() == wagon.getWagonId());
+            if (existedId) {
+                throw new RuntimeException("Sorry such wagon id is already present in the train");
             }
         }
         wagons.add(wagon);
     }
 
     public void addLocomotive(Locomotive locomotive) {
-        for (Locomotive l : locomotives) {
-            if (l.getOrderNumber() == locomotive.getOrderNumber()) {
-                throw new RuntimeException("Locomotive with such id " + locomotive.getOrderNumber()
-                        + "is already present in train");
+        if (locomotives.size() != 0) {
+            boolean existedId = locomotives.stream()
+                    .anyMatch(e -> e.getLocomotiveId() == locomotive.getLocomotiveId());
+            if (existedId) {
+                throw new RuntimeException("Sorry such locomotive id is already present in the train");
             }
         }
         locomotives.add(locomotive);
     }
 
-    public int findEmptyWeightOfTheEntireTrain(List<Wagon> wagonsList, List<Locomotive> locomotives) {
+    public int findEmptyWeightOfTheEntireTrain() {
         return locomotives.stream()
-                .map(Locomotive::getDefaultWeight)
-                .mapToInt(e -> e)
-                .sum()
-                +
-                wagonsList.stream()
-                        .map(Wagon::getDefaultWagonWeight)
-                        .mapToInt(e -> e)
-                        .sum();
-    }
-
-    public int findMaxNumberOfPassenger(List<Wagon> wagonsList) {
-        return wagonsList.stream()
-                .filter(e -> !e.getWagonTypes().equals(Wagon.WagonTypes.GOODS))
-                .map(Wagon::getMaxPassengerCapacity)
-                .mapToInt(e -> e)
-                .sum();
-    }
-
-    public int findMaxLoadingWeight(List<Wagon> wagonList) {
-        return wagonList.stream()
-                .filter(e -> e.getWagonTypes().equals(Wagon.WagonTypes.GOODS))
-                .map(Wagon::getMaxLoadCapacity)
-                .mapToInt(e -> e)
-                .sum();
-    }
-
-    public int findMaxLoadingOfTheTrain(List<Wagon> wagonList) {
-        return (findMaxNumberOfPassenger(wagonList) * 75) + findMaxLoadingWeight(wagonList);
-    }
-
-    public int findTotalWeightOfTheTrain(List<Wagon> wagons, List<Locomotive> locomotives) {
-        return findEmptyWeightOfTheEntireTrain(wagons, locomotives) + findMaxLoadingOfTheTrain(wagons);
-    }
-
-    public static int findTotalLengthOfTheTrain(List<Wagon> wagons, List<Locomotive> locomotives) {
-        return locomotives.stream()
-                .map(Locomotive::getDefaultLength)
-                .mapToInt(e -> e)
+                .mapToInt(Locomotive::getDefaultWeight)
                 .sum()
                 +
                 wagons.stream()
-                        .map(Wagon::getDefaultLength)
-                        .mapToInt(e -> e)
+                        .mapToInt(Wagon::getDefaultWagonWeight)
                         .sum();
     }
 
-    public boolean isCapableToDrive(List<Locomotive> locomotives, List<Wagon> wagons) {
+    public int findMaxNumberOfPassenger() {
+        return wagons.stream()
+                .filter(e -> !e.getWagonTypes().equals(Wagon.WagonTypes.GOODS))
+                .mapToInt(Wagon::getMaxPassengerCapacity)
+                .sum();
+    }
+
+    public int findMaxLoadingWeight() {
+        return wagons.stream()
+                .filter(e -> e.getWagonTypes().equals(Wagon.WagonTypes.GOODS))
+                .mapToInt(Wagon::getMaxLoadCapacity)
+                .sum();
+    }
+
+    public int findMaxLoadingOfTheTrain() {
+        return (findMaxNumberOfPassenger() * 75) + findMaxLoadingWeight();
+    }
+
+    public int findTotalWeightOfTheTrain() {
+        return findEmptyWeightOfTheEntireTrain() + findMaxLoadingOfTheTrain();
+    }
+
+    public int findTotalLengthOfTheTrain() {
+        return locomotives.stream()
+                .mapToInt(Locomotive::getDefaultLength)
+                .sum()
+                +
+                wagons.stream()
+                        .mapToInt(Wagon::getDefaultLength)
+                        .sum();
+    }
+
+    public boolean isCapableToDrive() {
         return locomotives
                 .stream()
                 .map(Locomotive::getTractiveForce)
-                .mapToInt(e -> e).sum() > findMaxLoadingOfTheTrain(wagons);
+                .mapToInt(e -> e).sum() > findMaxLoadingOfTheTrain();
     }
-
 
     public int addConductors(List<Wagon> wagons) {
-        return conductors = findMaxNumberOfPassenger(wagons) / 50;
+        return conductors = findMaxNumberOfPassenger() / 50;
     }
-
-
-
-
-
-   /*
-        cоздать инстанцы вагонов
-        добавить  их в  лист вагонов
-        тоже самое с локомотивами
-         */
 }
