@@ -3,7 +3,7 @@ package train.locomotives;
 public class SteamLocomotive extends Locomotive {
     private final int DEFAULT_LENGTH_IN_METERS = 20;
     private final int EMPTY_WEIGHT_IN_TONS = 100;
-    private final int MAX_PULL_WEIGHT_IN_TONS = 22_000;
+    private final int MAX_PULL_WEIGHT_IN_TONS = 60_000;
 
     public SteamLocomotive(int orderNumber, int yearOfProduction, String manufacturer,
                            Engine engineType, Designation designationType) {

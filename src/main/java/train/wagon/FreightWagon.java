@@ -4,13 +4,12 @@ public class FreightWagon extends Wagon {
     private final int DEFAULT_WEIGHT_IN_TONS = 23;
     private final int DEFAULT_LENGTH_IN_METERS = 30;
     private final int MAX_LOAD_CAPACITY = 30_000;
+    private final WagonTypes FREIGHT_TYPE_WAGON = WagonTypes.GOODS;
 
     @Override
     public WagonTypes getWagonTypes() {
         return WagonTypes.GOODS;
     }
-
-    private final WagonTypes FREIGHT_TYPE_WAGON = WagonTypes.GOODS;
 
     public FreightWagon(int yearOfProduction, String serialNumber, String manufacturer, int wagonId) {
         super(yearOfProduction, serialNumber, manufacturer, wagonId);

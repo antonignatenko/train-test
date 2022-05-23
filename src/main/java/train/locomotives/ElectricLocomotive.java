@@ -3,7 +3,7 @@ package train.locomotives;
 public class ElectricLocomotive extends Locomotive {
     private final int DEFAULT_LENGTH_IN_METERS = 25;
     private final int EMPTY_WEIGHT_IN_TONS = 80;
-    private final int MAX_PULL_WEIGHT_IN_TONS = 20_000;
+    private final int MAX_PULL_WEIGHT_IN_TONS = 50_000;
 
     public ElectricLocomotive(int orderNumber, int yearOfProduction, String manufacturer,
                               Engine engineType, Designation designationType) {
@@ -40,6 +40,15 @@ public class ElectricLocomotive extends Locomotive {
             return 450;
         }
         throw new RuntimeException("This type of locomotive don't carry passengers:");
+    }
+
+    @Override
+    public String toString() {
+        return "ElectricLocomotive{" +
+                "DEFAULT_LENGTH_IN_METERS=" + DEFAULT_LENGTH_IN_METERS +
+                ", EMPTY_WEIGHT_IN_TONS=" + EMPTY_WEIGHT_IN_TONS +
+                ", MAX_PULL_WEIGHT_IN_TONS=" + MAX_PULL_WEIGHT_IN_TONS +
+                '}';
     }
 }
 

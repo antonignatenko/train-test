@@ -3,7 +3,7 @@ package train.locomotives;
 public class DieselLocomotive extends Locomotive {
     private final int DEFAULT_LENGTH_IN_METERS = 30;
     private final int EMPTY_WEIGHT_IN_TONS = 90;
-    private final int MAX_PULL_WEIGHT_IN_TONS = 25_000;
+    private final int MAX_PULL_WEIGHT_IN_TONS = 45_000;
 
     public DieselLocomotive(int orderNumber, int yearOfProduction, String manufacturer,
                             Engine engineType, Designation designationType) {
